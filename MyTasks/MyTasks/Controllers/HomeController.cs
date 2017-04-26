@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyTasks.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,10 @@ namespace MyTasks.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public new ActionResult User()
         {
-            return View();
+            var user = new User() { Name = "Arup" };
+            return View(user);
         }
     }
 }

@@ -1,0 +1,38 @@
+User
+-------------
+* Id
+- Username
+- Password
+- IsDeleted
+- IsActive
+* CreateDate
+* UpdateDate
+* CreatedBy  (UserId)
+* UpdatedBy  (UserId)
+
+
+Task
+-------------
+* Id
+- Title
+- StartDateTime
+- EndDateTime
+- Assignee (UserId)
+- Status (TaskStatusId)
+- IsDeleted
+* CreateDate
+* UpdateDate
+* CreatedBy  (UserId)
+* UpdatedBy  (UserId)
+
+
+Status
+--------------
+* Id
+- Name
+- Description
+- IsDeleted
+* CreateDate
+* UpdateDate
+* CreatedBy  (UserId)
+* UpdatedBy  (UserId)

@@ -1,7 +1,7 @@
 USE [MyTask]
 GO
 
-/****** Object:  Table [dbo].[Status]    Script Date: 02-May-17 1:46:08 AM ******/
+/****** Object:  Table [dbo].[Status]    Script Date: 03-May-17 9:40 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,18 +9,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Status](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL CONSTRAINT [PK_Status_Id] PRIMARY KEY,
 	[Name] [nvarchar](100) NULL,
 	[Description] [nvarchar](255) NULL,
-	[IsDeleted] [nvarchar](10) NULL,
+	[IsDeleted] [bit] NULL,
 	[CreateDate] [datetime] NULL,
 	[UpdateDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
-	[CreatedBy] [int] NULL,
- CONSTRAINT [PK_Status] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[CreatedBy] [int] NULL
 ) ON [PRIMARY]
 
 GO

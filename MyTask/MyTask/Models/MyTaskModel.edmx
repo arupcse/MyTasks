@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyTaskModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="StartDateTime" Type="datetime" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Assignee" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <Association Name="FK_Status_Id">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Id">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Assignee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyTaskModelStoreContainer">
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Status_Id" Association="Self.FK_Status_Id">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Id" Association="Self.FK_User_Id">
+            <End Role="User" EntitySet="User" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyTaskModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Status_Id" FromRole="Status" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartDateTime" Type="DateTime" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Assignee" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="Status1" Relationship="Self.FK_Status_Id" FromRole="Task" ToRole="Status" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Id" FromRole="Task" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_User_Id" FromRole="User" ToRole="Task" />
+        </EntityType>
+        <Association Name="FK_Status_Id">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Id">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Assignee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyTaskEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Status_Id" Association="Self.FK_Status_Id">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Id" Association="Self.FK_User_Id">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyTaskModelStoreContainer" CdmEntityContainer="MyTaskEntities">
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="MyTaskModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="MyTaskModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Assignee" ColumnName="Assignee" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyTaskModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[Task](
 	[IsDeleted] [bit] NULL,
 	[Assignee] [int] NOT NULL CONSTRAINT [FK_User_Id] FOREIGN KEY REFERENCES [dbo].[User]([Id]),
 	[Status] [int] NOT NULL CONSTRAINT [FK_Status_Id] FOREIGN KEY REFERENCES [dbo].[Status]([Id]),
-	[CreateDate] [datetime] NULL,
+	[CreateDate] [datetime] NOT NULL,
 	[UpdateDate] [datetime] NULL,
 	[CreatedBy] [int] NOT NULL,
 	[UpdatedBy] [int] NULL

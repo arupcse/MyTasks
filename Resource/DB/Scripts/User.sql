@@ -14,9 +14,9 @@ CREATE TABLE [dbo].[User](
 	[Password] [nvarchar](max) NULL,
 	[IsDeleted] [bit] NULL,
 	[IsActive] [bit] NULL,
-	[CreateDate] [datetime] NULL,
+	[CreateDate] [datetime] NOT NULL,
 	[UpdateDate] [datetime] NULL,
-	[CreatedBy] [int] NULL,
+	[CreatedBy] [int] NOT NULL,
 	[UpdatedBy] [int] NULL
 ) ON [PRIMARY]
 

@@ -13,10 +13,10 @@ CREATE TABLE [dbo].[Status](
 	[Name] [nvarchar](100) NULL,
 	[Description] [nvarchar](255) NULL,
 	[IsDeleted] [bit] NULL,
-	[CreateDate] [datetime] NULL,
+	[CreateDate] [datetime] NOT NULL,
 	[UpdateDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
-	[CreatedBy] [int] NULL
+	[CreatedBy] [int] NOT NULL
 ) ON [PRIMARY]
 
 GO

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyTask.Models
+namespace Models
 {
     using System;
     using System.Data.Entity;
